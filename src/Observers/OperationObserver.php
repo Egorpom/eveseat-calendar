@@ -28,9 +28,11 @@ class OperationObserver
                 else
                     Notification::send($new_operation, new OperationActivated());
             }
+            /*
             else {
                 Notification::send($new_operation, new OperationUpdated());
             }
+            */
         }
     }
 }

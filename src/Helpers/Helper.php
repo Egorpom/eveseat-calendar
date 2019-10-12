@@ -35,10 +35,6 @@ class Helper
 
         $fields = array();
 
-        $fields[trans('calendar::seat.starts_at')] = $op->start_at->format('F j @ H:i EVE');
-        $fields[trans('calendar::seat.duration')] = $op->getDurationAttribute() ?
-            $op->getDurationAttribute() : trans('calendar::seat.unknown');
-
         $fields[trans('calendar::seat.importance')] =
             self::ImportanceAsEmoji(
                 $op->importance,
@@ -46,7 +42,14 @@ class Helper
                 setting('kassie.calendar.slack_emoji_importance_half', true),
                 setting('kassie.calendar.slack_emoji_importance_empty', true));
 
+        $fields[trans('calendar::seat.starts_at')] = $op->start_at->format('F j @ H:i EVE');
+        $fields[trans('calendar::seat.duration')] = $op->getDurationAttribute() ?
+            $op->getDurationAttribute() : trans('calendar::seat.unknown');
+
+        $fields[trans('calendar::seat.staging_sys')] = $op->staging_sys;
+
         $fields[trans('calendar::seat.fleet_commander')] = $op->fc ? $op->fc : trans('calendar::seat.unknown');
+        $fields[trans('calendar::seat.description')] = $op->description_new;
 
         return function ($attachment) use ($op, $url, $fields) {
             $attachment->title($op->title, $url)
